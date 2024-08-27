@@ -15,12 +15,18 @@ public class ConsoleGameManager : GameManager
     {
         // connect to IWordGenerator and generate a word
         masterWord = await _wordGenerator.GenerateWord(_settings);
+        displayWord = new char[masterWord.Length];
+        
+        for (int i = 0; i < masterWord.Length; i++)
+        {
+            displayWord[i] = '_';
+        }
     }
 
     public override void Run()
     {
         throw new NotImplementedException();
-        
+
     }
 
     public override void Setup()

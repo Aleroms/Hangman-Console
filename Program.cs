@@ -32,11 +32,3 @@ public interface IWordGenerator
 {
     Task<char[]> GenerateWord(WordSettings ws);
 }
-
-public class LocalWordGenerator : IWordGenerator
-{
-    public Task<char[]> GenerateWord(WordSettings ws)
-    {
-        throw new NotImplementedException();
-    }
-}
