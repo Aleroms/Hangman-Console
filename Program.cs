@@ -1,11 +1,14 @@
 ﻿var gm = new ConsoleGameManager(
     new ConsoleSetupManager(),
-    new LocalWordGenerator()
+    new LocalWordGenerator(),
+    new ConsolePlayer(),
+    new ConsoleHangman()
     );
 
 try
 {
     gm.Setup();
+    gm.Run();
 }
 catch (Exception e)
 {
@@ -31,4 +34,9 @@ public struct WordSettings
 public interface IWordGenerator
 {
     Task<char[]> GenerateWord(WordSettings ws);
+}
+public interface IPlayerInputHandler
+{
+    public char GetPlayerGuess();
+    int Lives { get; set; }
 }

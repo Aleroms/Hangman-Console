@@ -1,0 +1,83 @@
+﻿
+
+
+
+public interface IHangman
+{
+    public void DisplayState(int lives, char[] displayedWords, string guessedWords);
+}
+
+public class ConsoleHangman : IHangman
+{
+    private static readonly List<string> _state = new()
+{
+    @"
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========",
+    @"
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========",
+    @"
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+=========",
+    @"
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========",
+    @"
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========",
+    @"
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========",
+    @"
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+========="
+};
+    public void DisplayState(int lives, char[] displayedWords, string? guessedWords)
+    {
+        /*
+        display current state
+       display guessed_words(only if > 0)
+       display displayWord(the underline hint ___)
+        */
+        Console.WriteLine(_state[lives]);
+        if (guessedWords != null && guessedWords.Length > 0) Console.WriteLine($"Guessed Words: ${guessedWords}");
+        Console.WriteLine($"\nGuess Me: ${displayedWords}");
+
+
+    }
+}
