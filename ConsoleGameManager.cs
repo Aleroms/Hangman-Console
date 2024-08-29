@@ -23,11 +23,13 @@ public class ConsoleGameManager : GameManager
     public async override void FetchWord()
     {
         masterWord = await _wordGenerator.GenerateWord(_settings);
+        checkedWord = new char[masterWord.Length];
         displayWord = new char[masterWord.Length];
 
         for (int i = 0; i < masterWord.Length; i++)
         {
             displayWord[i] = '_';
+            checkedWord[i] = masterWord[i];
         }
 
     }
