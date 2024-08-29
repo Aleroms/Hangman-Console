@@ -38,14 +38,21 @@ public class ConsoleGameManager : GameManager
         while (!IsGameOver(_playerInputHandler.Lives))
         {
             _hangman.DisplayState(_playerInputHandler.Lives, displayWord, guessedWords);
-            playerGuess = _playerInputHandler.GetPlayerGuess();
+
+            if (!EvaluateGuess(_playerInputHandler.GetPlayerGuess()))
+                _playerInputHandler.Lives--;
+
         }
+        _hangman.DisplayState(_playerInputHandler.Lives, displayWord, guessedWords);
 
-
-        /*
-         evaluate response
-         display result
-         */
+        if(_playerInputHandler.Lives < 1)
+        {
+            Console.WriteLine("YOU LOSE");
+        }
+        else
+        {
+            Console.WriteLine("WINNER WINNER CHICKEN DINNER!");
+        }
     }
 
     public override void Setup()
