@@ -25,6 +25,7 @@ public class ConsoleGameManager : GameManager
 
     public async override void FetchWord()
     {
+        // handle logic for nulls
         masterWord = await _wordGenerator.GenerateWord(gameDifficulty);
         displayWord = new char[masterWord.Length];
 
@@ -51,13 +52,13 @@ public class ConsoleGameManager : GameManager
         if (_playerInputHandler.Lives < 1)
         {
             Console.WriteLine("YOU LOSE");
-            Console.WriteLine($"The word was {masterWord.ToString()}");
+            Console.WriteLine($"The word was {masterWord}");
         }
         else
         {
             _playerInputHandler.Victories++;
             Console.WriteLine("WINNER WINNER CHICKEN DINNER!\n" +
-                $"GAMES WON {_playerInputHandler.Victories}");
+                $"\nGAMES WON {_playerInputHandler.Victories}");
             _storage.Write("victories.txt", _playerInputHandler.Victories.ToString());
         }
 

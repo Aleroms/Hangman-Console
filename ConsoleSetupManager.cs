@@ -38,15 +38,8 @@ public class ConsoleSetupManager : SetupManager
     }
     private void DisplayWelcome()
     {
-        DisplayLine();
-        Console.WriteLine(@"  _   _                                         
- | | | | __ _ _ __   __ _ _ __ ___   __ _ _ __  
- | |_| |/ _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
- |  _  | (_| | | | | (_| | | | | | | (_| | | | |
- |_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
-                    |___/       
-");
-        DisplayLine();
+        ConsoleHangman.DisplayBanner();
+
         Console.WriteLine("Welcome to Hangman!");
     }
 }

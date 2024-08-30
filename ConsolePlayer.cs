@@ -20,7 +20,8 @@ public class ConsolePlayer : IPlayerInputHandler
 
             if (!string.IsNullOrEmpty(input) && input.Length == 1 && char.IsLetter(input[0]))
             {
-                return input[0];
+                //return input[0];
+                return char.ToLower(input[0]);
             }
             else
             {

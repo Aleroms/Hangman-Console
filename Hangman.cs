@@ -67,14 +67,21 @@ public class ConsoleHangman : IHangman
       |
 ========="
 };
+    public static readonly string Banner = @"  _   _                                         
+ | | | | __ _ _ __   __ _ _ __ ___   __ _ _ __  
+ | |_| |/ _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+ |  _  | (_| | | | | (_| | | | | | | (_| | | | |
+ |_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                    |___/       
+";
+    private static readonly string _line = "==============================================================";
     public void DisplayState(int lives, char[] displayedWords, string? guessedWords)
     {
-        /*
-        display current state
-       display guessed_words(only if > 0)
-       display displayWord(the underline hint ___)
-        */
+        Console.Clear();
+        DisplayBanner();
+
         Console.WriteLine(_state[lives]);
+
         if (guessedWords != null && guessedWords.Length > 0)
         {
             string displayGuessedLetters = string.Join(" ", guessedWords);
@@ -85,5 +92,11 @@ public class ConsoleHangman : IHangman
         Console.WriteLine($"\nGuess Me: {word}");
 
 
+    }
+    public static void DisplayBanner()
+    {
+        Console.WriteLine(_line);
+        Console.WriteLine(Banner);
+        Console.WriteLine(_line);
     }
 }

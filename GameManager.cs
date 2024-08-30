@@ -3,7 +3,7 @@
 public abstract class GameManager
 {
     protected GameDifficulty gameDifficulty;
-    protected char[] masterWord;
+    protected string masterWord;
     protected char[] displayWord;
     protected string guessedWords = "";
 
