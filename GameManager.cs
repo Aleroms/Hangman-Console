@@ -2,7 +2,7 @@
 
 public abstract class GameManager
 {
-    protected WordSettings _settings;
+    protected GameDifficulty gameDifficulty;
     protected char[] masterWord;
     protected char[] displayWord;
     protected string guessedWords = "";

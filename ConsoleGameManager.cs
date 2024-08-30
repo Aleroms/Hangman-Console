@@ -25,7 +25,7 @@ public class ConsoleGameManager : GameManager
 
     public async override void FetchWord()
     {
-        masterWord = await _wordGenerator.GenerateWord(_settings);
+        masterWord = await _wordGenerator.GenerateWord(gameDifficulty);
         displayWord = new char[masterWord.Length];
 
         for (int i = 0; i < masterWord.Length; i++)
@@ -49,7 +49,10 @@ public class ConsoleGameManager : GameManager
         _hangman.DisplayState(_playerInputHandler.Lives, displayWord, guessedWords);
 
         if (_playerInputHandler.Lives < 1)
+        {
             Console.WriteLine("YOU LOSE");
+            Console.WriteLine($"The word was {masterWord.ToString()}");
+        }
         else
         {
             _playerInputHandler.Victories++;
@@ -65,7 +68,7 @@ public class ConsoleGameManager : GameManager
         //load victories
         _playerInputHandler.Victories = int.Parse(_storage.Read("victories.txt"));
 
-        _settings = _setupManager.GetSettings();
+        gameDifficulty = _setupManager.GetDifficulty();
         FetchWord();
     }
 }

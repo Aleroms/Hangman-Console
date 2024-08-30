@@ -34,7 +34,7 @@ public struct WordSettings
 
 public interface IWordGenerator
 {
-    Task<char[]> GenerateWord(WordSettings ws);
+    Task<char[]> GenerateWord(GameDifficulty game);
 }
 public interface IPlayerInputHandler
 {

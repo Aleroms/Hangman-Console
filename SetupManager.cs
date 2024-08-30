@@ -6,6 +6,6 @@ public abstract class SetupManager
     public int WordLength { get; set; }
     public GameDifficulty GameMode { get; set; }
 
-    public abstract WordSettings GetSettings(); 
+    public abstract GameDifficulty GetDifficulty();
 
 }

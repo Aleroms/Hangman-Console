@@ -52,10 +52,9 @@ public class LocalWordGenerator : IWordGenerator
             "philosopher".ToCharArray(),
         });
     }
-    public Task<char[]> GenerateWord(WordSettings ws)
+    public Task<char[]> GenerateWord(GameDifficulty game)
     {
-        var matchingWords = _wordList[ws.difficulty].
-            Where(w => w.Length == ws.wordLength).ToList();
+        var matchingWords = _wordList[game].ToList();
 
         if (!matchingWords.Any())
             return Task.FromResult<char[]>(null);
@@ -63,4 +62,6 @@ public class LocalWordGenerator : IWordGenerator
         var random = new Random();
         return Task.FromResult(matchingWords[random.Next(matchingWords.Count)]);
     }
+
+    
 }
