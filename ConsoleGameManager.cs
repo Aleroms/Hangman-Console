@@ -6,30 +6,31 @@ public class ConsoleGameManager : GameManager
     private readonly IWordGenerator _wordGenerator;
     private readonly IPlayerInputHandler _playerInputHandler;
     private readonly IHangman _hangman;
+    private readonly IStorage _storage;
 
     public ConsoleGameManager(
         SetupManager setupManager,
         IWordGenerator wordGenerator,
         IPlayerInputHandler playerInputHandler,
-        IHangman hangman)
+        IHangman hangman,
+        IStorage storage)
     {
         _setupManager = setupManager;
         _wordGenerator = wordGenerator;
         _playerInputHandler = playerInputHandler;
         _hangman = hangman;
+        _storage = storage;
 
     }
 
     public async override void FetchWord()
     {
         masterWord = await _wordGenerator.GenerateWord(_settings);
-        checkedWord = new char[masterWord.Length];
         displayWord = new char[masterWord.Length];
 
         for (int i = 0; i < masterWord.Length; i++)
         {
             displayWord[i] = '_';
-            checkedWord[i] = masterWord[i];
         }
 
     }
@@ -47,19 +48,23 @@ public class ConsoleGameManager : GameManager
         }
         _hangman.DisplayState(_playerInputHandler.Lives, displayWord, guessedWords);
 
-        if(_playerInputHandler.Lives < 1)
-        {
+        if (_playerInputHandler.Lives < 1)
             Console.WriteLine("YOU LOSE");
-        }
         else
         {
-            Console.WriteLine("WINNER WINNER CHICKEN DINNER!");
+            _playerInputHandler.Victories++;
+            Console.WriteLine("WINNER WINNER CHICKEN DINNER!\n" +
+                $"GAMES WON {_playerInputHandler.Victories}");
+            _storage.Write("victories.txt", _playerInputHandler.Victories.ToString());
         }
+
     }
 
     public override void Setup()
     {
-        // Get the settings and fetch the word
+        //load victories
+        _playerInputHandler.Victories = int.Parse(_storage.Read("victories.txt"));
+
         _settings = _setupManager.GetSettings();
         FetchWord();
     }

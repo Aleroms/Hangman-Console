@@ -4,9 +4,8 @@ public abstract class GameManager
 {
     protected WordSettings _settings;
     protected char[] masterWord;
-    protected char[] checkedWord;
     protected char[] displayWord;
-    protected string guessedWords;
+    protected string guessedWords = "";
 
 
     public abstract void Run();
@@ -18,9 +17,10 @@ public abstract class GameManager
     protected bool EvaluateGuess(char guess)
     {
         bool isCorrectGuess = false;
-        guessedWords += guess;
+        if (!guessedWords.Contains(guess))
+            guessedWords += guess;
 
-        for(int i = 0; i < masterWord.Length; i++)
+        for (int i = 0; i < masterWord.Length; i++)
         {
             if (masterWord[i] == guess)
             {

@@ -75,10 +75,14 @@ public class ConsoleHangman : IHangman
        display displayWord(the underline hint ___)
         */
         Console.WriteLine(_state[lives]);
-        if (guessedWords != null && guessedWords.Length > 0) Console.WriteLine($"Guessed Words: {guessedWords}");
+        if (guessedWords != null && guessedWords.Length > 0)
+        {
+            string displayGuessedLetters = string.Join(" ", guessedWords);
+            Console.WriteLine($"Guessed Letters: {displayGuessedLetters}");
+        }
         string word = "";
         foreach (char c in displayedWords) word += c;
-        Console.WriteLine($"\nGuess Me: #{word}");
+        Console.WriteLine($"\nGuess Me: {word}");
 
 
     }

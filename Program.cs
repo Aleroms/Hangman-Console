@@ -2,7 +2,8 @@
     new ConsoleSetupManager(),
     new LocalWordGenerator(),
     new ConsolePlayer(),
-    new ConsoleHangman()
+    new ConsoleHangman(),
+    new LocalStore()
     );
 
 try
@@ -37,6 +38,13 @@ public interface IWordGenerator
 }
 public interface IPlayerInputHandler
 {
-    public char GetPlayerGuess();
+    char GetPlayerGuess();
     int Lives { get; set; }
+    int Victories { get; set; }
+}
+
+public interface IStorage
+{
+    string Read(string filePath);
+    void Write(string filePath, string data);
 }

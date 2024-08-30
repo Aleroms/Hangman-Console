@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 public class ConsolePlayer : IPlayerInputHandler
 {
     public int Lives { get; set; }
+    public int Victories { get; set; }
 
     public ConsolePlayer()
     {
@@ -17,7 +18,6 @@ public class ConsolePlayer : IPlayerInputHandler
             Console.Write("Guess a letter: ");
             string? input = Console.ReadLine();
 
-            // Validate input: not null/empty, length is 1, and it's alphabetic
             if (!string.IsNullOrEmpty(input) && input.Length == 1 && char.IsLetter(input[0]))
             {
                 return input[0];
