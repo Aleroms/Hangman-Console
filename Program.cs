@@ -1,6 +1,6 @@
 ﻿var gm = new ConsoleGameManager(
     new ConsoleSetupManager(),
-    new LocalWordGenerator(),
+    new APIWordGenerator(),
     new ConsolePlayer(),
     new ConsoleHangman(),
     new LocalStore()
@@ -34,7 +34,7 @@ public struct WordSettings
 
 public interface IWordGenerator
 {
-    Task<string> GenerateWord(GameDifficulty game);
+    string GenerateWord(GameDifficulty game);
 }
 public interface IPlayerInputHandler
 {

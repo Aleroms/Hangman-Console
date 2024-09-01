@@ -23,10 +23,18 @@ public class ConsoleGameManager : GameManager
 
     }
 
-    public async override void FetchWord()
+    public override void FetchWord()
     {
         // handle logic for nulls
-        masterWord = await _wordGenerator.GenerateWord(gameDifficulty);
+        Console.WriteLine("Starting to fetch word...");
+        masterWord = _wordGenerator.GenerateWord(gameDifficulty);
+
+        if (string.IsNullOrEmpty(masterWord))
+        {
+            Console.WriteLine("Failed to generate a word or received an empty string.");
+            return;
+        }
+
         displayWord = new char[masterWord.Length];
 
         for (int i = 0; i < masterWord.Length; i++)

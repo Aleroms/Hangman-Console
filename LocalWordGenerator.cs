@@ -1,8 +1,4 @@
-﻿
-
-
-
-public class LocalWordGenerator : IWordGenerator
+﻿public class LocalWordGenerator : IWordGenerator
 {
     private Dictionary<GameDifficulty, List<string>> _wordList;
 
@@ -52,15 +48,15 @@ public class LocalWordGenerator : IWordGenerator
             "philosopher",
         });
     }
-    public Task<string> GenerateWord(GameDifficulty game)
+    public string GenerateWord(GameDifficulty game)
     {
         var matchingWords = _wordList[game];
 
         if (!matchingWords.Any())
-            return Task.FromResult<string>("");
+            return "";
 
         var random = new Random();
-        return Task.FromResult(matchingWords[random.Next(matchingWords.Count)]);
+        return matchingWords[random.Next(matchingWords.Count)];
     }
 
 

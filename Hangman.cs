@@ -88,6 +88,7 @@ public class ConsoleHangman : IHangman
             Console.WriteLine($"Guessed Letters: {displayGuessedLetters}");
         }
         string word = "";
+
         foreach (char c in displayedWords) word += c;
         Console.WriteLine($"\nGuess Me: {word}");
 
