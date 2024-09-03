@@ -31,7 +31,6 @@ public abstract class GameManager
         return isCorrectGuess;
     }
 
-    private bool IsMasterWordGuessed() =>
-        new string(masterWord) == new string(displayWord);
+    private bool IsMasterWordGuessed() => masterWord == new string(displayWord);
 
 }

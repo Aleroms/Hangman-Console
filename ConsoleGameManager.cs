@@ -1,5 +1,7 @@
 ﻿
 
+using System.Text.RegularExpressions;
+
 public class ConsoleGameManager : GameManager
 {
     private readonly SetupManager _setupManager;
@@ -25,13 +27,20 @@ public class ConsoleGameManager : GameManager
 
     public override void FetchWord()
     {
-        // handle logic for nulls
-        Console.WriteLine("Starting to fetch word...");
+
+        //Console.WriteLine("Starting to fetch word...");
+        ConsoleFormatting.WriteColored("starting to fetch word...", System.ConsoleColor.Yellow);
         masterWord = _wordGenerator.GenerateWord(gameDifficulty);
+
+        // this should not be the game manager's job to sanitize API
+        masterWord = Regex.Replace(masterWord, @"[^a-z]", "");
 
         if (string.IsNullOrEmpty(masterWord))
         {
-            Console.WriteLine("Failed to generate a word or received an empty string.");
+            //Console.WriteLine("Failed to generate a word or received an empty string.");
+            ConsoleFormatting.WriteColored(
+                "Failed to generate a word or received an empty string.",
+                System.ConsoleColor.Red);
             return;
         }
 
@@ -59,14 +68,17 @@ public class ConsoleGameManager : GameManager
 
         if (_playerInputHandler.Lives < 1)
         {
-            Console.WriteLine("YOU LOSE");
+            ConsoleFormatting.WriteColored("YOU LOSE", ConsoleColor.Magenta);
             Console.WriteLine($"The word was {masterWord}");
         }
         else
         {
             _playerInputHandler.Victories++;
-            Console.WriteLine("WINNER WINNER CHICKEN DINNER!\n" +
-                $"\nGAMES WON {_playerInputHandler.Victories}");
+            ConsoleFormatting.WriteColored(
+                "WINNER WINNER CHICKEN DINNER!\n"
+                + $"\nGAMES WON {_playerInputHandler.Victories}",
+                ConsoleColor.Green);
+
             _storage.Write("victories.txt", _playerInputHandler.Victories.ToString());
         }
 
@@ -80,4 +92,24 @@ public class ConsoleGameManager : GameManager
         gameDifficulty = _setupManager.GetDifficulty();
         FetchWord();
     }
+
+}
+public static class ConsoleFormatting
+{
+    public static void WriteColored(string message, ConsoleColor consoleColor, bool newLine = true)
+    {
+        Console.ForegroundColor = consoleColor;
+
+        if (newLine)
+        {
+            Console.WriteLine(message);
+        }
+        else
+        {
+            Console.Write(message);
+        }
+
+        Console.ResetColor();
+    }
+
 }

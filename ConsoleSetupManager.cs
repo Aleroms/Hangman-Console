@@ -8,7 +8,13 @@ public class ConsoleSetupManager : SetupManager
         DisplayWelcome();
 
         string options = "Please select from the following options:\n1. EASY, 2. MEDIUM, 3. HARD";
-        Console.WriteLine(options);
+        Console.WriteLine("Please select from the following options:");
+        ConsoleFormatting.WriteColored(
+            "1: EASY, ", ConsoleColor.Green, false);
+        ConsoleFormatting.WriteColored(
+            "2: MEDIUM, ", ConsoleColor.Yellow, false);
+        ConsoleFormatting.WriteColored(
+            "3: HARD\n", ConsoleColor.Red, false);
 
         int uin;
 

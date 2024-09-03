@@ -25,7 +25,9 @@ public class ConsolePlayer : IPlayerInputHandler
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a single alphabetic letter.");
+                ConsoleFormatting.WriteColored("Invalid input. Please enter a single alphabetic letter.",
+                    ConsoleColor.Red);
+
             }
         }
     }
