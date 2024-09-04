@@ -1,6 +1,6 @@
 ﻿var gm = new ConsoleGameManager(
     new ConsoleSetupManager(),
-    new APIWordGenerator(),
+    new APIWordGenerator(FoundationalModel.META),
     new ConsolePlayer(),
     new ConsoleHangman(),
     new LocalStore()

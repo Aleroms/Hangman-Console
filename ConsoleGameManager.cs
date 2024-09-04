@@ -28,7 +28,6 @@ public class ConsoleGameManager : GameManager
     public override void FetchWord()
     {
 
-        //Console.WriteLine("Starting to fetch word...");
         ConsoleFormatting.WriteColored("starting to fetch word...", System.ConsoleColor.Yellow);
         masterWord = _wordGenerator.GenerateWord(gameDifficulty);
 
@@ -37,7 +36,6 @@ public class ConsoleGameManager : GameManager
 
         if (string.IsNullOrEmpty(masterWord))
         {
-            //Console.WriteLine("Failed to generate a word or received an empty string.");
             ConsoleFormatting.WriteColored(
                 "Failed to generate a word or received an empty string.",
                 System.ConsoleColor.Red);
