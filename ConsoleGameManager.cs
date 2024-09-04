@@ -28,11 +28,8 @@ public class ConsoleGameManager : GameManager
     public override void FetchWord()
     {
 
-        ConsoleFormatting.WriteColored("starting to fetch word...", System.ConsoleColor.Yellow);
+        ConsoleFormatting.WriteColored("starting to fetch word...", ConsoleColor.Yellow);
         masterWord = _wordGenerator.GenerateWord(gameDifficulty);
-
-        // this should not be the game manager's job to sanitize API
-        masterWord = Regex.Replace(masterWord, @"[^a-z]", "");
 
         if (string.IsNullOrEmpty(masterWord))
         {
@@ -51,34 +48,53 @@ public class ConsoleGameManager : GameManager
 
     }
 
+    public override void Reset()
+    {
+        guessedWords = "";
+        _playerInputHandler.ResetLives();
+    }
+
     public override void Run()
     {
+        bool playAgain = false;
 
-        while (!IsGameOver(_playerInputHandler.Lives))
+        do
         {
+            FetchWord();
+
+            while (!IsGameOver(_playerInputHandler.Lives))
+            {
+                _hangman.DisplayState(_playerInputHandler.Lives, displayWord, guessedWords);
+
+                if (!EvaluateGuess(_playerInputHandler.GetPlayerGuess()))
+                    _playerInputHandler.Lives--;
+
+            }
             _hangman.DisplayState(_playerInputHandler.Lives, displayWord, guessedWords);
 
-            if (!EvaluateGuess(_playerInputHandler.GetPlayerGuess()))
-                _playerInputHandler.Lives--;
+            if (_playerInputHandler.Lives < 1)
+            {
+                ConsoleFormatting.WriteColored("YOU LOSE", ConsoleColor.Magenta);
+                Console.WriteLine($"The word was {masterWord}");
+            }
+            else
+            {
+                _playerInputHandler.Victories++;
+                ConsoleFormatting.WriteColored(
+                    "WINNER WINNER CHICKEN DINNER!\n"
+                    + $"\nGAMES WON {_playerInputHandler.Victories}",
+                    ConsoleColor.Green);
 
-        }
-        _hangman.DisplayState(_playerInputHandler.Lives, displayWord, guessedWords);
+                _storage.Write("victories.txt", _playerInputHandler.Victories.ToString());
+            }
+            playAgain = _playerInputHandler.GetPlayAgain();
 
-        if (_playerInputHandler.Lives < 1)
-        {
-            ConsoleFormatting.WriteColored("YOU LOSE", ConsoleColor.Magenta);
-            Console.WriteLine($"The word was {masterWord}");
-        }
-        else
-        {
-            _playerInputHandler.Victories++;
-            ConsoleFormatting.WriteColored(
-                "WINNER WINNER CHICKEN DINNER!\n"
-                + $"\nGAMES WON {_playerInputHandler.Victories}",
-                ConsoleColor.Green);
-
-            _storage.Write("victories.txt", _playerInputHandler.Victories.ToString());
-        }
+            if (playAgain) 
+            {
+                Reset();
+            }
+            
+        } while (playAgain);
 
     }
 
@@ -86,9 +102,8 @@ public class ConsoleGameManager : GameManager
     {
         //load victories
         _playerInputHandler.Victories = int.Parse(_storage.Read("victories.txt"));
-
         gameDifficulty = _setupManager.GetDifficulty();
-        FetchWord();
+
     }
 
 }

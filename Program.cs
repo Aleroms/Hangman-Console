@@ -39,6 +39,8 @@ public interface IWordGenerator
 public interface IPlayerInputHandler
 {
     char GetPlayerGuess();
+    bool GetPlayAgain();
+    void ResetLives();
     int Lives { get; set; }
     int Victories { get; set; }
 }

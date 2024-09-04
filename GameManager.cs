@@ -11,6 +11,7 @@ public abstract class GameManager
     public abstract void Run();
     public abstract void Setup();
     public abstract void FetchWord();
+    public abstract void Reset();
 
     protected bool IsGameOver(int playerLives) => playerLives == 0 || IsMasterWordGuessed();
 
