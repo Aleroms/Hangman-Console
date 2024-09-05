@@ -76,16 +76,16 @@ public static class AWSBedrock
                 break;
             case FoundationalModel.ANTHROPIC_CLAUDE1:
                 promptFormat = $"wordGenerate?hangman_prompt=%5Cn%5CnHuman%3Agenerate%20an%20{difficulty}%20English%20word."
-                    + "%20Only%20return%20a%20single%20word!%5Cn%5CnAssistant%3A";
+                    + "%20Only%20return%20a%20single%20word%20and%20wrap%20it%20in%20parenthesis!%5Cn%5CnAssistant%3A";
                 break;
         }
         return promptFormat;
     }
     public static string Sanitize(string text) =>
         FoundationalModel == FoundationalModel.META_LLAMA3 ? Regex.Replace(text, @"[^a-z]", "") :
-        FoundationalModel == FoundationalModel.ANTHROPIC_CLAUDE1 ? Regex.Replace(text, @"[^a-z]", "")
+        FoundationalModel == FoundationalModel.ANTHROPIC_CLAUDE1 ? Regex.Match(text, @"\(([a-zA-Z]+)\)").Groups[1].Value
         : text;
 
-    
+
 
 }

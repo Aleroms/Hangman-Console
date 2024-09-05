@@ -1,7 +1,6 @@
 ﻿
 public class ConsoleSetupManager : SetupManager
 {
-    private readonly int _lineLength = 50;
 
     public override GameDifficulty GetDifficulty()
     {
