@@ -1,4 +1,4 @@
-﻿
+﻿namespace Hangman.GameCore;
 
 public abstract class GameManager
 {

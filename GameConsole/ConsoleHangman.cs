@@ -1,17 +1,11 @@
-﻿
-
-
-
-public interface IHangman
-{
-    public void DisplayState(int lives, char[] displayedWords, string guessedWords);
-}
-
+﻿using Hangman.GameInterface;
+using System.Text.RegularExpressions;
+namespace Hangman.GameConsole;
 public class ConsoleHangman : IHangman
 {
-    private static readonly List<string> _state = new()
-{
-    @"
+    private static readonly List<string> _state =
+[
+@"
   +---+
   |   |
   O   |
@@ -19,7 +13,7 @@ public class ConsoleHangman : IHangman
  / \  |
       |
 =========",
-    @"
+@"
   +---+
   |   |
   O   |
@@ -27,14 +21,14 @@ public class ConsoleHangman : IHangman
  /    |
       |
 =========",
-    @"
+@"
   +---+
   |   |
   O   |
  /|\  |
       |
 =========",
-    @"
+@"
   +---+
   |   |
   O   |
@@ -42,7 +36,7 @@ public class ConsoleHangman : IHangman
       |
       |
 =========",
-    @"
+@"
   +---+
   |   |
   O   |
@@ -50,7 +44,7 @@ public class ConsoleHangman : IHangman
       |
       |
 =========",
-    @"
+@"
   +---+
   |   |
   O   |
@@ -58,7 +52,7 @@ public class ConsoleHangman : IHangman
       |
       |
 =========",
-    @"
+@"
   +---+
   |   |
       |
@@ -66,7 +60,7 @@ public class ConsoleHangman : IHangman
       |
       |
 ========="
-};
+];
     public static readonly string Banner = @"  _   _                                         
  | | | | __ _ _ __   __ _ _ __ ___   __ _ _ __  
  | |_| |/ _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 

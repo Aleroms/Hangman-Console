@@ -1,4 +1,6 @@
-﻿
+﻿using Hangman.GameCore;
+namespace Hangman.GameConsole;
+
 public class ConsoleSetupManager : SetupManager
 {
 

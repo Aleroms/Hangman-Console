@@ -1,4 +1,10 @@
-﻿var gm = new ConsoleGameManager(
+﻿using Hangman.CloudInfrastructure;
+using Hangman.ExternalAPI;
+using Hangman.GameConsole;
+using Hangman.GameCore;
+using Hangman.Local;
+
+var gm = new ConsoleGameManager(
     new ConsoleSetupManager(),
     new APIWordGenerator(FoundationalModel.ANTHROPIC_CLAUDE1),
     new ConsolePlayer(),
@@ -18,35 +24,3 @@ catch (Exception e)
 
 Console.WriteLine("Press any key to continue");
 Console.ReadKey();
-
-public enum GameDifficulty { EASY, MEDIUM, HARD }
-public struct WordSettings
-{
-    public int wordLength;
-    public GameDifficulty difficulty;
-
-    public WordSettings(int length, GameDifficulty difficulty)
-    {
-        wordLength = length;
-        this.difficulty = difficulty;
-    }
-}
-
-public interface IWordGenerator
-{
-    string GenerateWord(GameDifficulty game);
-}
-public interface IPlayerInputHandler
-{
-    char GetPlayerGuess();
-    bool GetPlayAgain();
-    void ResetLives();
-    int Lives { get; set; }
-    int Victories { get; set; }
-}
-
-public interface IStorage
-{
-    string Read(string filePath);
-    void Write(string filePath, string data);
-}

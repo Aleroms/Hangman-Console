@@ -1,6 +1,6 @@
-﻿
-
-using System.Text.RegularExpressions;
+﻿using Hangman.GameCore;
+using Hangman.GameInterface;
+namespace Hangman.GameConsole;
 
 public class ConsoleGameManager : GameManager
 {
@@ -91,11 +91,11 @@ public class ConsoleGameManager : GameManager
             }
             playAgain = _playerInputHandler.GetPlayAgain();
 
-            if (playAgain) 
+            if (playAgain)
             {
                 Reset();
             }
-            
+
         } while (playAgain);
 
     }
@@ -106,25 +106,6 @@ public class ConsoleGameManager : GameManager
         _playerInputHandler.Victories = int.Parse(_storage.Read("victories.txt"));
         gameDifficulty = _setupManager.GetDifficulty();
 
-    }
-
-}
-public static class ConsoleFormatting
-{
-    public static void WriteColored(string message, ConsoleColor consoleColor, bool newLine = true)
-    {
-        Console.ForegroundColor = consoleColor;
-
-        if (newLine)
-        {
-            Console.WriteLine(message);
-        }
-        else
-        {
-            Console.Write(message);
-        }
-
-        Console.ResetColor();
     }
 
 }

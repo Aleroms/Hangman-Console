@@ -1,6 +1,5 @@
-﻿
-
-using System.Text.RegularExpressions;
+﻿using Hangman.GameCore;
+namespace Hangman.GameConsole;
 
 public class ConsolePlayer : IPlayerInputHandler
 {

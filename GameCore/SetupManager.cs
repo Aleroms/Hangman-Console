@@ -1,5 +1,4 @@
-﻿
-
+﻿namespace Hangman.GameCore;
 
 public abstract class SetupManager
 {
