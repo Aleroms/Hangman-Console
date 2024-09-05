@@ -50,8 +50,10 @@ public class ConsoleGameManager : GameManager
 
     public override void Reset()
     {
+        Console.Clear();
         guessedWords = "";
         _playerInputHandler.ResetLives();
+        gameDifficulty = _setupManager.GetDifficulty();
     }
 
     public override void Run()
